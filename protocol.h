@@ -7,10 +7,11 @@
 /* 电控 -> 视觉 数据结构体*/
 typedef struct {
   struct {
-    float yaw; /* 偏航角（Yaw angle） */
-    float pit; /* 俯仰角（Pitch angle） */
-    float rol; /* 翻滚角（Roll angle） */
-  } imu;       /* IMU计算的欧拉角 */
+    float q0;
+    float q1;
+    float q2;
+    float q3;
+  } quaternion; /* 四元数 */
 
   uint32_t notice; /* 控制命令 */
 
@@ -22,6 +23,8 @@ typedef struct {
   } distance; /* 左右距离(哨兵) */
 
   float chassis_speed; /* 底盘速度(哨兵) */
+
+  uint16_t crc16; /* crc校验 */
 } Protocol_MCU_t;
 
 /* 视觉 -> 电控 数据结构体*/
@@ -35,4 +38,6 @@ typedef struct {
   uint32_t notice; /* 控制命令 */
 
   float chassis_speed_setpoint; /* 底盘速度(哨兵) */
+
+  uint16_t crc16; /* crc校验 */
 } Protocol_AI_t;
