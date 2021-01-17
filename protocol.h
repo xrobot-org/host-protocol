@@ -4,8 +4,10 @@
 
 #include <stdint.h>
 
-/* 电控 -> 视觉 数据结构体*/
+/* 电控 -> 视觉 MCU数据结构体*/
 typedef struct {
+  uint16_t id;
+
   struct {
     float q0;
     float q1;
@@ -27,8 +29,21 @@ typedef struct {
   uint16_t crc16; /* crc校验 */
 } Protocol_MCU_t;
 
+/* 电控 -> 视觉 裁判系统数据结构体*/
+typedef struct {
+  uint16_t id;
+  
+  struct {
+    uint16_t example;
+  } data;
+
+  uint16_t crc16;
+} Protocol_Referee_t;
+
 /* 视觉 -> 电控 数据结构体*/
 typedef struct {
+  uint16_t id;
+  
   struct {
     float yaw;    /* 偏航角（Yaw angle） */
     float pit;    /* 俯仰角（Pitch angle） */
