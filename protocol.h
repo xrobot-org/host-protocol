@@ -2,6 +2,12 @@
   视觉与电控通信协议
 */
 
+#include <stdint.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define AI_NOTICE_AOTUAIM (1 << 0)
 #define AI_NOTICE_HITSWITCH (1 << 1)
 #define AI_NOTICE_AUTOMATIC (1 << 2)
@@ -10,11 +16,9 @@
 #define AI_ID_MCU (0xC4)
 #define AI_ID_REF (0xA8)
 
-#include <stdint.h>
-
 /* 电控 -> 视觉 MCU数据结构体*/
-typedef struct __packed {
-  struct {
+typedef struct __attribute__((packed)) {
+  struct __attribute__((packed)) {
     float q0;
     float q1;
     float q2;
@@ -25,7 +29,7 @@ typedef struct __packed {
 
   float ball_speed; /* 子弹初速度 */
 
-  struct __packed {
+  struct __attribute__((packed)) {
     float left;
     float right;
   } distance; /* 左右距离(哨兵) */
@@ -36,15 +40,15 @@ typedef struct __packed {
 } Protocol_Data_MCU_t;
 
 /* 电控 -> 视觉 裁判系统数据结构体*/
-typedef struct __packed {
+typedef struct __attribute__((packed)) {
   uint16_t example;
 
   uint16_t crc16; /* crc校验 */
 } Protocol_Data_Referee_t;
 
 /* 视觉 -> 电控 数据结构体*/
-typedef struct __packed {
-  struct {
+typedef struct __attribute__((packed)) {
+  struct __attribute__((packed)) {
     float yaw;    /* 偏航角（Yaw angle） */
     float pit;    /* 俯仰角（Pitch angle） */
     float rol;    /* 翻滚角（Roll angle） */
@@ -57,14 +61,18 @@ typedef struct __packed {
   uint16_t crc16; /* crc校验 */
 } Protocol_AI_t;
 
-typedef struct __packed {
+typedef struct __attribute__((packed)) {
   uint8_t id;
 
   Protocol_Data_MCU_t data;
 } Protocol_MCU_t;
 
-typedef struct __packed {
+typedef struct __attribute__((packed)) {
   uint8_t id;
 
   Protocol_Data_Referee_t data;
 } Protocol_Referee_t;
+
+#ifdef __cplusplus
+}
+#endif
