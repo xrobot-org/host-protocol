@@ -35,15 +35,11 @@ typedef struct __attribute__((packed)) {
   } distance; /* 左右距离(哨兵) */
 
   float chassis_speed; /* 底盘速度(哨兵) */
-
-  uint16_t crc16; /* crc校验 */
 } Protocol_Data_MCU_t;
 
 /* 电控 -> 视觉 裁判系统数据结构体*/
 typedef struct __attribute__((packed)) {
   uint16_t example;
-
-  uint16_t crc16; /* crc校验 */
 } Protocol_Data_Referee_t;
 
 /* 视觉 -> 电控 数据结构体*/
@@ -57,6 +53,10 @@ typedef struct __attribute__((packed)) {
   uint8_t notice; /* 控制命令 */
 
   float chassis_speed_setpoint; /* 底盘速度(哨兵) */
+} Protocol_Data_AI_t;
+
+typedef struct __attribute__((packed)) {
+  Protocol_Data_AI_t data;
 
   uint16_t crc16; /* crc校验 */
 } Protocol_AI_t;
@@ -65,12 +65,16 @@ typedef struct __attribute__((packed)) {
   uint8_t id;
 
   Protocol_Data_MCU_t data;
+
+  uint16_t crc16; /* crc校验 */
 } Protocol_MCU_t;
 
 typedef struct __attribute__((packed)) {
   uint8_t id;
 
   Protocol_Data_Referee_t data;
+
+  uint16_t crc16; /* crc校验 */
 } Protocol_Referee_t;
 
 #ifdef __cplusplus
