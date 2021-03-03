@@ -16,6 +16,8 @@ extern "C" {
 #define AI_ID_MCU (0xC4)
 #define AI_ID_REF (0xA8)
 
+typedef uint8_t Protocol_ID_t;
+
 /* 电控 -> 视觉 MCU数据结构体*/
 typedef struct __attribute__((packed)) {
   struct __attribute__((packed)) {
@@ -35,12 +37,12 @@ typedef struct __attribute__((packed)) {
   } distance; /* 左右距离(哨兵) */
 
   float chassis_speed; /* 底盘速度(哨兵) */
-} Protocol_Data_MCU_t;
+} Protocol_UpDataMCU_t;
 
 /* 电控 -> 视觉 裁判系统数据结构体*/
 typedef struct __attribute__((packed)) {
   uint16_t example;
-} Protocol_Data_Referee_t;
+} Protocol_UpDataReferee_t;
 
 /* 视觉 -> 电控 数据结构体*/
 typedef struct __attribute__((packed)) {
@@ -53,29 +55,22 @@ typedef struct __attribute__((packed)) {
   uint8_t notice; /* 控制命令 */
 
   float chassis_speed_setpoint; /* 底盘速度(哨兵) */
-} Protocol_Data_AI_t;
+} Protocol_DownData_t;
 
 typedef struct __attribute__((packed)) {
-  Protocol_Data_AI_t data;
-
-  uint16_t crc16; /* crc校验 */
-} Protocol_AI_t;
-
-typedef struct __attribute__((packed)) {
-  uint8_t id;
-
-  Protocol_Data_MCU_t data;
-
-  uint16_t crc16; /* crc校验 */
-} Protocol_MCU_t;
+  Protocol_UpDataMCU_t data;
+  uint16_t crc16;
+} Protocol_UpPackageMCU_t;
 
 typedef struct __attribute__((packed)) {
-  uint8_t id;
+  Protocol_UpDataReferee_t data;
+  uint16_t crc16;
+} Protocol_UpPackageReferee_t;
 
-  Protocol_Data_Referee_t data;
-
-  uint16_t crc16; /* crc校验 */
-} Protocol_Referee_t;
+typedef struct __attribute__((packed)) {
+  Protocol_DownData_t data;
+  uint16_t crc16;
+} Protocol_DownPackage_t;
 
 #ifdef __cplusplus
 }
