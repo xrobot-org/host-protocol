@@ -54,7 +54,11 @@ typedef struct __attribute__((packed)) {
 
   uint8_t notice; /* 控制命令 */
 
-  float chassis_speed_setpoint; /* 底盘速度(哨兵) */
+  struct __attribute__((packed)) {
+    float vx;         /* x轴移动速度 */
+    float vy;         /* y轴移动速度 */
+    float wz;         /* z轴转动速度 */
+  } chassis_move_vec; /* 底盘移动向量 */
 } Protocol_DownData_t;
 
 typedef struct __attribute__((packed)) {
