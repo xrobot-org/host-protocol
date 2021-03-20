@@ -16,6 +16,9 @@ extern "C" {
 #define AI_ID_MCU (0xC4)
 #define AI_ID_REF (0xA8)
 
+#define AI_TEAM_RED (0x01)
+#define AI_TEAM_BLUE (0x02)
+
 typedef uint8_t Protocol_ID_t;
 
 /* 电控 -> 视觉 MCU数据结构体*/
@@ -41,7 +44,7 @@ typedef struct __attribute__((packed)) {
 
 /* 电控 -> 视觉 裁判系统数据结构体*/
 typedef struct __attribute__((packed)) {
-  uint16_t example;
+  uint16_t team; /* 本身队伍 */
 } Protocol_UpDataReferee_t;
 
 /* 视觉 -> 电控 数据结构体*/
@@ -50,7 +53,7 @@ typedef struct __attribute__((packed)) {
     float yaw;    /* 偏航角（Yaw angle） */
     float pit;    /* 俯仰角（Pitch angle） */
     float rol;    /* 翻滚角（Roll angle） */
-  } gimbal_delta; /* 欧拉角的变化量 */
+  } gimbal; /* 欧拉角 */
 
   uint8_t notice; /* 控制命令 */
 
