@@ -8,8 +8,8 @@
 extern "C" {
 #endif
 
-#define AI_NOTICE_AOTUAIM (1 << 0)
-#define AI_NOTICE_HITSWITCH (1 << 1)
+#define AI_NOTICE_AUTOAIM (1 << 0)
+#define AI_NOTICE_HITBUFF (1 << 1)
 #define AI_NOTICE_AUTOMATIC (1 << 2)
 #define AI_NOTICE_FIRE (1 << 3)
 
@@ -45,15 +45,16 @@ typedef struct __attribute__((packed)) {
 /* 电控 -> 视觉 裁判系统数据结构体*/
 typedef struct __attribute__((packed)) {
   uint16_t team; /* 本身队伍 */
+  uint16_t time; /* 比赛开始时间 */
 } Protocol_UpDataReferee_t;
 
 /* 视觉 -> 电控 数据结构体*/
 typedef struct __attribute__((packed)) {
   struct __attribute__((packed)) {
-    float yaw;    /* 偏航角（Yaw angle） */
-    float pit;    /* 俯仰角（Pitch angle） */
-    float rol;    /* 翻滚角（Roll angle） */
-  } gimbal; /* 欧拉角 */
+    float yaw; /* 偏航角（Yaw angle） */
+    float pit; /* 俯仰角（Pitch angle） */
+    float rol; /* 翻滚角（Roll angle） */
+  } gimbal;    /* 欧拉角 */
 
   uint8_t notice; /* 控制命令 */
 
