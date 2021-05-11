@@ -2,6 +2,8 @@
   视觉与电控通信协议
 */
 
+#pragma once
+
 #include <stdint.h>
 
 #ifdef __cplusplus
