@@ -21,6 +21,10 @@ extern "C" {
 #define AI_TEAM_RED (0x01)
 #define AI_TEAM_BLUE (0x02)
 
+#define AI_RACE_RMUC (1 << 0)
+#define AI_RACE_RMUT (1 << 1)
+#define AI_RACE_RMUL (1 << 2)
+
 typedef uint8_t Protocol_ID_t;
 
 /* 电控 -> 视觉 MCU数据结构体*/
@@ -48,6 +52,7 @@ typedef struct __attribute__((packed)) {
 typedef struct __attribute__((packed)) {
   uint16_t team; /* 本身队伍 */
   uint16_t time; /* 比赛开始时间 */
+  uint8_t race;  /* 比赛类型 */
 } Protocol_UpDataReferee_t;
 
 /* 视觉 -> 电控 数据结构体*/
