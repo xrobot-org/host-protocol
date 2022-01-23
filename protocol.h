@@ -18,12 +18,16 @@ extern "C" {
 #define AI_ID_MCU (0xC4)
 #define AI_ID_REF (0xA8)
 
-#define AI_TEAM_RED (0x01)
-#define AI_TEAM_BLUE (0x02)
+#define AI_TEAM_RED (1 << 0)
+#define AI_TEAM_BLUE (1 << 1)
 
 #define AI_RACE_RMUC (1 << 0)
 #define AI_RACE_RMUT (1 << 1)
-#define AI_RACE_RMUL (1 << 2)
+#define AI_RACE_RMUL1 (1 << 2)
+#define AI_RACE_RMUL3 (1 << 3)
+
+#define AI_RFID_BUFF (1 << 0)
+#define AI_RFID_SNIP (1 << 1)
 
 typedef uint8_t Protocol_ID_t;
 
@@ -53,6 +57,7 @@ typedef struct __attribute__((packed)) {
   uint16_t team; /* 本身队伍 */
   uint16_t time; /* 比赛开始时间 */
   uint8_t race;  /* 比赛类型 */
+  uint8_t rfid;  /* 增益地点 */
 } Protocol_UpDataReferee_t;
 
 /* 视觉 -> 电控 数据结构体*/
