@@ -10,10 +10,14 @@
 extern "C" {
 #endif
 
-#define AI_NOTICE_AUTOAIM (1 << 0)
-#define AI_NOTICE_HITBUFF (1 << 1)
-#define AI_NOTICE_AUTOMATIC (1 << 2)
-#define AI_NOTICE_FIRE (1 << 3)
+#define AI_NOTICE_INFENCY (1 << 0)
+#define AI_NOTICE_HERO (1 << 1)
+#define AI_NOTICE_ENGINEER (1 << 2)
+#define AI_NOTICE_DRONE (1 << 3)
+#define AI_NOTICE_SENTRY (1 << 4)
+#define AI_NOTICE_DART (1 << 5)
+#define AI_NOTICE_RADAR (1 << 6)
+#define AI_NOTICE_FIRE (1 << 7)
 
 #define AI_ID_MCU (0xC4)
 #define AI_ID_REF (0xA8)
@@ -40,24 +44,22 @@ typedef struct __attribute__((packed)) {
     float q3;
   } quat; /* 四元数 */
 
-  uint8_t notice; /* 控制命令 */
+  Protocol_ID_t notice; /* 控制命令 */
 
   float ball_speed; /* 子弹初速度 */
-
-  struct __attribute__((packed)) {
-    float left;
-    float right;
-  } distance; /* 左右距离(哨兵) */
 
   float chassis_speed; /* 底盘速度(哨兵) */
 } Protocol_UpDataMCU_t;
 
 /* 电控 -> 视觉 裁判系统数据结构体*/
 typedef struct __attribute__((packed)) {
-  uint16_t team; /* 本身队伍 */
-  uint16_t time; /* 比赛开始时间 */
-  uint8_t race;  /* 比赛类型 */
-  uint8_t rfid;  /* 增益地点 */
+  uint16_t team;         /* 本身队伍 */
+  uint16_t time;         /* 比赛开始时间 */
+  uint8_t race;          /* 比赛类型 */
+  uint8_t rfid;          /* 增益地点 */
+  uint8_t base_hp;       /* 基地血量 */
+  uint8_t sentry_hp;     /* 哨兵血量 */
+  uint8_t ballet_remain; /* 剩余弹量 */
 } Protocol_UpDataReferee_t;
 
 /* 视觉 -> 电控 数据结构体*/
@@ -68,12 +70,12 @@ typedef struct __attribute__((packed)) {
     float rol; /* 翻滚角（Roll angle） */
   } gimbal;    /* 欧拉角 */
 
-  uint8_t notice; /* 控制命令 */
+  Protocol_ID_t notice; /* 控制命令 */
 
   struct __attribute__((packed)) {
     float vx;         /* x轴移动速度 */
-    float vy;         /* y轴移动速度 */
-    float wz;         /* z轴转动速度 */
+    float vy;         /* y轴移动速度、哨兵沿轨道方向（正面面向战场，右为正方向） */
+    float wz;         /* z轴转动速度、哨兵射界（弧度0～pi） */
   } chassis_move_vec; /* 底盘移动向量 */
 } Protocol_DownData_t;
 
