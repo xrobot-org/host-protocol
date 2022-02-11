@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-#define AI_NOTICE_INFENCY (1 << 0)
+#define AI_NOTICE_INFANTRY (1 << 0)
 #define AI_NOTICE_HERO (1 << 1)
 #define AI_NOTICE_ENGINEER (1 << 2)
 #define AI_NOTICE_DRONE (1 << 3)
