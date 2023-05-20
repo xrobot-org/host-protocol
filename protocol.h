@@ -86,6 +86,16 @@ typedef struct __attribute__((packed)) {
     float vy;         /* y轴移动速度、哨兵沿轨道方向(正面面向战场，右为正方向) */
     float wz;         /* z轴转动速度、哨兵射界(弧度0～pi) */
   } chassis_move_vec; /* 底盘移动向量 */
+
+  struct __attribute__((packed)) {
+    float x;
+    float y;
+    float z;
+    float pitch;
+    float roll;
+    float yaw;
+  } extern_channel; /* 额外控制通道 */
+
 } Protocol_DownData_t;
 
 typedef struct __attribute__((packed)) {
