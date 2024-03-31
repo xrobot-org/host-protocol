@@ -19,13 +19,15 @@ extern "C" {
 #define AI_ARM_RADAR (1 << 6)
 
 #define AI_NOTICE_FIRE (1 << 1)
-
 #define AI_NOTICE_BUFF (1 << 2)
 #define AI_NOTICE_SNIPE (1 << 3)
 #define AI_NOTICE_SLOPE (1 << 4)
 #define AI_NOTICE_OUTPOST (1 << 5)
 #define AI_NOTICE_SENTRY (1 << 6)
 #define AI_NOTICE_BASE (1 << 7)
+
+#define AI_NOTICE_AUTOATROL (3)
+#define AI_NOTICE_AUTO_AIM (5)
 
 #define AI_ID_MCU (0xC4)
 #define AI_ID_REF (0xA8)
@@ -82,9 +84,9 @@ typedef struct __attribute__((packed)) {
   Protocol_ID_t notice; /* 控制命令 */
 
   struct __attribute__((packed)) {
-    float vx;         /* x轴移动速度 */
-    float vy;         /* y轴移动速度、哨兵沿轨道方向(正面面向战场，右为正方向) */
-    float wz;         /* z轴转动速度、哨兵射界(弧度0～pi) */
+    float vx; /* x轴移动速度 */
+    float vy; /* y轴移动速度、哨兵沿轨道方向(正面面向战场，右为正方向) */
+    float wz; /* z轴转动速度、哨兵射界(弧度0～pi) */
   } chassis_move_vec; /* 底盘移动向量 */
 
   struct __attribute__((packed)) {
