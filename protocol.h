@@ -29,8 +29,7 @@ extern "C" {
 #define AI_NOTICE_AUTOATROL (3)
 #define AI_NOTICE_AUTO_AIM (5)
 
-#define AI_ID_MCU (0xC4)
-#define AI_ID_REF (0xA8)
+#define AI_ID_MCU (0x5A)
 
 #define AI_TEAM_RED (1 << 0)
 #define AI_TEAM_BLUE (1 << 1)
@@ -45,33 +44,51 @@ extern "C" {
 
 typedef uint8_t Protocol_ID_t;
 
-/* 电控 -> 视觉 MCU数据结构体*/
+/*Electronically controlled to visual structures*/
 typedef struct __attribute__((packed)) {
   struct __attribute__((packed)) {
-    float q0;
-    float q1;
-    float q2;
-    float q3;
-  } quat; /* 四元数 */
+    float yaw;
+    float pit;
+    float rol;
+  } eulr;
 
-  Protocol_ID_t notice; /* 控制命令 */
+  Protocol_ID_t notice;
 
-  float ball_speed; /* 子弹初速度 */
+  float ball_speed;
 
-  float chassis_speed; /* 底盘速度(哨兵) */
-} Protocol_UpDataMCU_t;
+  float yaw;
+  float pit;
+  float rol;
 
-/* 电控 -> 视觉 裁判系统数据结构体*/
-typedef struct __attribute__((packed)) {
-  uint16_t team;         /* 本身队伍 */
-  uint16_t time;         /* 比赛开始时间 */
-  uint8_t race;          /* 比赛类型 */
-  uint8_t rfid;          /* 增益地点 */
-  uint8_t base_hp;       /* 基地血量 */
-  uint8_t sentry_hp;     /* 哨兵血量 */
-  uint8_t ballet_remain; /* 剩余弹量 */
-  uint8_t arm;           /* 兵种信息 */
-} Protocol_UpDataReferee_t;
+  uint8_t game_progress; /* 比赛开始时间 */
+  uint32_t rfid;         /* 增益地点 */
+  uint16_t base_hp;      /* 基地血量 */
+  uint16_t sentry_hp;    /* 哨兵血量 */
+  uint16_t outpost_hp;
+  uint16_t ballet_remain; /* 剩余弹量 */
+
+  uint8_t recovery_buff;      /*机器人回血增益*/
+  uint8_t cooling_buff;       /*机器人射击热量冷却倍率*/
+  uint8_t defence_buff;       /*机器人防御增益*/
+  uint8_t vulnerability_buff; /*机器人负防御增益*/
+  uint16_t attack_buff;       /*机器人攻击增益*/
+  uint8_t remaining_energy;   /*机器人剩余能量值反馈*/
+
+  uint16_t hero_hp;
+  uint16_t standard_3_hp;
+  uint16_t standard_4_hp;
+  uint16_t engineer_hp;
+
+  float hero_x;
+  float hero_y;
+  float standard_3_x;
+  float standard_3_y;
+  float standard_4_x;
+  float standard_4_y;
+  float engineer_x;
+  float engineer_y;
+
+} Protocol_UpDataToHost_t;
 
 /* 视觉 -> 电控 数据结构体*/
 typedef struct __attribute__((packed)) {
@@ -82,33 +99,18 @@ typedef struct __attribute__((packed)) {
   } gimbal;    /* 欧拉角 */
 
   Protocol_ID_t notice; /* 控制命令 */
-
   struct __attribute__((packed)) {
     float vx; /* x轴移动速度 */
     float vy; /* y轴移动速度、哨兵沿轨道方向(正面面向战场，右为正方向) */
     float wz; /* z轴转动速度、哨兵射界(弧度0～pi) */
   } chassis_move_vec; /* 底盘移动向量 */
 
-  struct __attribute__((packed)) {
-    float x;
-    float y;
-    float z;
-    float pitch;
-    float roll;
-    float yaw;
-  } extern_channel; /* 额外控制通道 */
-
 } Protocol_DownData_t;
-
 typedef struct __attribute__((packed)) {
-  Protocol_UpDataMCU_t data;
+  uint8_t id;
+  Protocol_UpDataToHost_t data;
   uint16_t crc16;
-} Protocol_UpPackageMCU_t;
-
-typedef struct __attribute__((packed)) {
-  Protocol_UpDataReferee_t data;
-  uint16_t crc16;
-} Protocol_UpPackageReferee_t;
+} Protocol_UpPackage_t;
 
 typedef struct __attribute__((packed)) {
   Protocol_DownData_t data;
