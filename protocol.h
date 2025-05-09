@@ -19,15 +19,10 @@ extern "C" {
 #define AI_ARM_RADAR (1 << 6)
 
 #define AI_NOTICE_FIRE (1 << 1)
-#define AI_NOTICE_BUFF (1 << 2)
-#define AI_NOTICE_SNIPE (1 << 3)
-#define AI_NOTICE_SLOPE (1 << 4)
-#define AI_NOTICE_OUTPOST (1 << 5)
-#define AI_NOTICE_SENTRY (1 << 6)
-#define AI_NOTICE_BASE (1 << 7)
+#define AI_NOTICE_CEASEFIRE (5)
 
-#define AI_NOTICE_AUTOATROL (3)
-#define AI_NOTICE_AUTO_AIM (5)
+#define AI_NOTICE_AUTO_AIM (1 << 1)
+#define AI_NOTICE_SCAN (5)
 
 #define AI_ID_MCU (0x5A)
 
