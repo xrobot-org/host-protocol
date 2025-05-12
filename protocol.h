@@ -10,19 +10,8 @@
 extern "C" {
 #endif
 
-#define AI_ARM_INFANTRY (1 << 0)
-#define AI_ARM_HERO (1 << 1)
-#define AI_ARM_ENGINEER (1 << 2)
-#define AI_ARM_DRONE (1 << 3)
-#define AI_ARM_SENTRY (1 << 4)
-#define AI_ARM_DART (1 << 5)
-#define AI_ARM_RADAR (1 << 6)
-
-#define AI_NOTICE_FIRE (1 << 1)
-#define AI_NOTICE_CEASEFIRE (5)
-
-#define AI_NOTICE_AUTO_AIM (1 << 1)
-#define AI_NOTICE_SCAN (5)
+#define AI_NOTICE_FIRE (1 << 0)
+#define AI_NOTICE_CEASEFIRE (1 << 1)
 
 #define AI_ID_MCU (0x5A)
 
@@ -31,11 +20,7 @@ extern "C" {
 
 #define AI_RACE_RMUC (1 << 0)
 #define AI_RACE_RMUT (1 << 1)
-#define AI_RACE_RMUL1 (1 << 2)
 #define AI_RACE_RMUL3 (1 << 3)
-
-#define AI_RFID_BUFF (1 << 0)
-#define AI_RFID_SNIP (1 << 1)
 
 typedef uint8_t Protocol_ID_t;
 
