@@ -31,6 +31,7 @@ typedef struct __attribute__((packed)) {
     float pit;
     float rol;
   } eulr;
+  float chassis_yaw_offset_;
 
   Protocol_ID_t notice;
 
@@ -68,6 +69,7 @@ typedef struct __attribute__((packed)) {
   float engineer_x;
   float engineer_y;
 
+  uint8_t damaged_armor_id; /* 受击装甲ID */
 } Protocol_UpDataToHost_t;
 
 /* 视觉 -> 电控 数据结构体*/
